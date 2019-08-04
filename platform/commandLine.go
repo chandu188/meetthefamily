@@ -28,6 +28,9 @@ func NewPlatform(r io.Reader, w io.Writer) IOReadWriter {
 
 func (c *commandLine) RetrieveInput() (string, error) {
 	str, err := c.input.ReadString('\n')
+	if err == nil && len(str) > 0 {
+		str = str[:len(str)-1]
+	}
 	return str, err
 }
 

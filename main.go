@@ -37,13 +37,9 @@ func main() {
 		tokens := strings.Split(v, " ")
 		var res string
 		if len(tokens) == 4 && tokens[0] == "ADD_CHILD" {
-			gender := tokens[3]
-			gender = gender[:len(gender)-1]
-			res = ft.AddChild(tokens[1], tokens[2], gender)
+			res = ft.AddChild(tokens[1], tokens[2], tokens[3])
 		} else if len(tokens) == 3 && tokens[0] == "GET_RELATIONSHIP" {
-			relation := tokens[2]
-			relation = relation[:len(relation)-1]
-			res = ft.GetRelationShip(tokens[1], relation)
+			res = ft.GetRelationShip(tokens[1], tokens[2])
 		}
 		p.WriteOutput(res)
 	}
