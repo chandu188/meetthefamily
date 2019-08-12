@@ -13,7 +13,7 @@ type IOReadWriter interface {
 }
 
 type commandLine struct {
-	input  *bufio.Reader
+	input  *bufio.Scanner
 	output *bufio.Writer
 }
 
@@ -21,15 +21,20 @@ type commandLine struct {
 // writes the given string to w
 func NewPlatform(r io.Reader, w io.Writer) IOReadWriter {
 	return &commandLine{
-		input:  bufio.NewReader(r),
+		input:  bufio.NewScanner(r),
 		output: bufio.NewWriter(w),
 	}
 }
 
 func (c *commandLine) RetrieveInput() (string, error) {
-	str, err := c.input.ReadString('\n')
-	if err == nil && len(str) > 0 {
-		str = str[:len(str)-1]
+	var str string
+	var err error
+	scanner := c.input
+	err = scanner.Err()
+	if scanner.Scan() {
+		str = scanner.Text()
+	} else {
+		err = io.EOF
 	}
 	return str, err
 }

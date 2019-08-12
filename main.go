@@ -13,6 +13,7 @@ import (
 func main() {
 
 	if len(os.Args) != 2 {
+		log.Println("missing file path information")
 		os.Exit(1)
 	}
 	fn := os.Args[1]
