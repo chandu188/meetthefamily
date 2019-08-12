@@ -9,7 +9,7 @@
         • You should be able to add a child to any family in the tree through the mother.
 
 ##### Assumptions:
-    • Name of the family memeber is unique
+    • Name of the family member is unique
     • Family members are added from left to right
 
 Prerequisites:
