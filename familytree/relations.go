@@ -43,7 +43,8 @@ var siblings relationFn = func(m *member) []*member {
 		return nil
 	}
 	siblings := make([]*member, 0)
-	for _, s := range m.parent.children {
+	mother := m.parent.mother
+	for _, s := range mother.partner.children {
 		if s != m {
 			siblings = append(siblings, s)
 		}

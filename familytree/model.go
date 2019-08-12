@@ -16,8 +16,13 @@ type member struct {
 	name    string
 	gender  GENDER
 	partner *couple
-	parent  *couple
+	parent  *parents
 	order   int
+}
+
+type parents struct {
+	mother *member
+	father *member
 }
 
 func NewMember(name string, g GENDER) *member {
@@ -42,7 +47,10 @@ func (c *couple) other(m *member) *member {
 
 func (c *couple) addChild(m *member) {
 	c.children = append(c.children, m)
-	m.parent = c
+	m.parent = &parents{
+		mother: c.mother,
+		father: c.father,
+	}
 }
 
 func NewCouple(m *member, f *member) *couple {

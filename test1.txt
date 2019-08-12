@@ -14,3 +14,5 @@ GET_RELATIONSHIP Ish Son
 GET_RELATIONSHIP Misha Daughter
 ADD_CHILD Satya Yaya Female
 GET_RELATIONSHIP Satvy Sister-In-Law
+GET_RELATIONSHIP Atya Sister-In-Law
+GET_RELATIONSHIP Vasa Siblings
