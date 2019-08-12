@@ -15,8 +15,9 @@
 Prerequisites:
     Install Go 1.11 or later
 
-### Run
+### Build
 ``` 
-export GO111MODULE=on
-go run main.go <path-to-the-input-file>
+To build the application: make build 
+To run tests: make test
+To run application: make file_path=<location_of_file> run
 ```
