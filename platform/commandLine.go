@@ -6,10 +6,11 @@ import (
 	"io"
 )
 
-// IOReadWriter is an interface for retrieveing an input and writing to output
+// IOReadWriter is an interface for retrieveing a line from the input
+//and writing a line to output
 type IOReadWriter interface {
 	RetrieveInput() (string, error)
-	WriteOutput(s string)
+	WriteOutput(s string) error
 }
 
 type commandLine struct {
@@ -39,7 +40,10 @@ func (c *commandLine) RetrieveInput() (string, error) {
 	return str, err
 }
 
-func (c *commandLine) WriteOutput(s string) {
-	fmt.Fprintln(c.output, s)
-	c.output.Flush()
+func (c *commandLine) WriteOutput(s string) error {
+	_, err := fmt.Fprintln(c.output, s)
+	if err != nil {
+		return err
+	}
+	return c.output.Flush()
 }

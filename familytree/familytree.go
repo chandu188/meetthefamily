@@ -92,35 +92,36 @@ func (f *familyTree) addChild(mother string, child string, g GENDER) *member {
 		return nil
 	}
 	m := f.addToFamily(child, g)
-	mo.partner.addChild(m)
+	mo.addChild(m)
+	m.addParents(mo, mo.partner)
 	return m
 }
 
 func initializeFamilyTree(f *familyTree) {
 	ks := f.addToFamily("King Shan", male)
 	qa := f.addToFamily("Queen Anga", female)
-	NewCouple(qa, ks)
+	qa.setPartner(ks)
 	ch := f.addChild(qa.name, "Chit", male)
 	am := f.addToFamily("Amba", female)
-	NewCouple(am, ch)
+	am.setPartner(ch)
 
 	f.addChild(qa.name, "Ish", male)
 
 	vi := f.addChild(qa.name, "Vish", male)
 	lika := f.addToFamily("Lika", female)
-	NewCouple(lika, vi)
+	lika.setPartner(vi)
 
 	aras := f.addChild(qa.name, "Aras", male)
 	chitra := f.addToFamily("Chitra", female)
-	NewCouple(chitra, aras)
+	chitra.setPartner(aras)
 
 	satya := f.addChild(qa.name, "Satya", female)
 	vyan := f.addToFamily("Vyan", male)
-	NewCouple(satya, vyan)
+	satya.setPartner(vyan)
 
 	dritha := f.addChild(am.name, "Dritha", female)
 	jaya := f.addToFamily("Jaya", male)
-	NewCouple(dritha, jaya)
+	dritha.setPartner(jaya)
 
 	f.addChild(am.name, "Tritha", female)
 	f.addChild(am.name, "Vritha", male)
@@ -132,7 +133,7 @@ func initializeFamilyTree(f *familyTree) {
 
 	jnki := f.addChild(chitra.name, "Jnki", female)
 	arit := f.addToFamily("Arit", male)
-	NewCouple(jnki, arit)
+	jnki.setPartner(arit)
 
 	f.addChild(chitra.name, "Ahit", male)
 
@@ -141,11 +142,11 @@ func initializeFamilyTree(f *familyTree) {
 
 	satvy := f.addToFamily("Satvy", female)
 	asva := f.addChild(satya.name, "Asva", male)
-	NewCouple(satvy, asva)
+	satvy.setPartner(asva)
 
 	krpi := f.addToFamily("Krpi", female)
 	vyas := f.addChild(satya.name, "Vyas", male)
-	NewCouple(krpi, vyas)
+	krpi.setPartner(vyas)
 
 	f.addChild(satya.name, "Atya", female)
 

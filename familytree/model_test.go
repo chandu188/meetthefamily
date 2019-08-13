@@ -14,17 +14,18 @@ func TestMember(t *testing.T) {
 func TestCouple(t *testing.T) {
 	s := NewMember("Sandhya", female)
 	r := NewMember("Ram", male)
-	c := NewCouple(s, r)
+	s.setPartner(r)
 
 	ash := NewMember("Ashwik", male)
-	c.addChild(ash)
+	ash.addParents(s, r)
+	s.addChild(ash)
 
 	assert.NotNil(t, s.partner)
 	assert.NotNil(t, r.partner)
-	assert.Equal(t, s, c.other(r))
+
 	assert.Equal(t, 1, len(s.partner.children))
 
-	assert.NotNil(t, ash.parent)
-	assert.Equal(t, s.name, ash.parent.mother.name)
-	assert.NotNil(t, r.name, ash.parent.father.name)
+	assert.NotNil(t, ash.parents)
+	assert.Equal(t, s.name, ash.mother.name)
+	assert.NotNil(t, r.name, ash.father.name)
 }

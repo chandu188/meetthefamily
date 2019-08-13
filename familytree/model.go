@@ -13,11 +13,31 @@ func (f relatives) Less(i, j int) bool {
 }
 
 type member struct {
-	name    string
-	gender  GENDER
-	partner *couple
-	parent  *parents
-	order   int
+	name     string
+	gender   GENDER
+	partner  *member
+	children []*member
+	*parents
+	order int
+}
+
+func (m *member) addChild(c *member) {
+	m.children = append(m.children, c)
+	if m.partner != nil {
+		m.partner.children = append(m.partner.children, c)
+	}
+}
+
+func (c *member) addParents(m *member, f *member) {
+	c.parents = &parents{
+		mother: m,
+		father: f,
+	}
+}
+
+func (m *member) setPartner(f *member) {
+	m.partner = f
+	f.partner = m
 }
 
 type parents struct {
@@ -30,36 +50,4 @@ func NewMember(name string, g GENDER) *member {
 		name:   name,
 		gender: g,
 	}
-}
-
-type couple struct {
-	mother   *member
-	father   *member
-	children []*member
-}
-
-func (c *couple) other(m *member) *member {
-	if m == c.mother {
-		return c.father
-	}
-	return c.mother
-}
-
-func (c *couple) addChild(m *member) {
-	c.children = append(c.children, m)
-	m.parent = &parents{
-		mother: c.mother,
-		father: c.father,
-	}
-}
-
-func NewCouple(m *member, f *member) *couple {
-	c := &couple{
-		mother:   m,
-		father:   f,
-		children: make([]*member, 0),
-	}
-	m.partner = c
-	f.partner = c
-	return c
 }

@@ -18,17 +18,17 @@ var relationFnMap = map[string]relationFn{
 }
 
 var mother relationFn = func(m *member) []*member {
-	if m.parent == nil {
+	if m.parents == nil {
 		return nil
 	}
-	return []*member{m.parent.mother}
+	return []*member{m.parents.mother}
 }
 
 var father relationFn = func(m *member) []*member {
-	if m.parent == nil {
+	if m.parents == nil {
 		return nil
 	}
-	return []*member{m.parent.father}
+	return []*member{m.parents.father}
 }
 
 var children relationFn = func(m *member) []*member {
@@ -39,12 +39,12 @@ var children relationFn = func(m *member) []*member {
 }
 
 var siblings relationFn = func(m *member) []*member {
-	if m.parent == nil {
+	if m.parents == nil {
 		return nil
 	}
 	siblings := make([]*member, 0)
-	mother := m.parent.mother
-	for _, s := range mother.partner.children {
+	mother := m.parents.mother
+	for _, s := range mother.children {
 		if s != m {
 			siblings = append(siblings, s)
 		}
@@ -72,7 +72,7 @@ var spouse = func(m *member) []*member {
 	if m.partner == nil {
 		return nil
 	}
-	return []*member{m.partner.other(m)}
+	return []*member{m.partner}
 }
 
 var grandsons = func(m *member) []*member {
