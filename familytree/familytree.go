@@ -48,7 +48,8 @@ func (f *familyTree) AddChild(mother string, child string, g string) string {
 		return childAdditionFailed
 	}
 	m := f.addToFamily(child, GENDER(g))
-	mo.partner.addChild(m)
+	mo.addChild(m)
+	m.addParents(mo, mo.partner )
 	return childAdditionSucceded
 }
 
